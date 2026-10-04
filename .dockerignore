@@ -1,0 +1,10 @@
+.git
+.idea
+.vscode
+.tmp-python
+**/target
+**/node_modules
+**/dist
+references
+docs/screenshots
+

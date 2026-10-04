@@ -1,0 +1,13 @@
+{
+  "title": "Snip API Overview",
+  "uid": "snip-overview",
+  "schemaVersion": 41,
+  "refresh": "10s",
+  "time": { "from": "now-1h", "to": "now" },
+  "panels": [
+    { "id": 1, "type": "stat", "title": "Request rate", "gridPos": {"x":0,"y":0,"w":6,"h":6}, "targets": [{"expr":"sum(rate(http_server_requests_seconds_count{job=\"snip-api\"}[5m]))","legendFormat":"req/s"}] },
+    { "id": 2, "type": "stat", "title": "JVM heap used", "gridPos": {"x":6,"y":0,"w":6,"h":6}, "targets": [{"expr":"sum(jvm_memory_used_bytes{job=\"snip-api\",area=\"heap\"})","legendFormat":"bytes"}] },
+    { "id": 3, "type": "timeseries", "title": "HTTP latency p95", "gridPos": {"x":0,"y":6,"w":12,"h":8}, "targets": [{"expr":"histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{job=\"snip-api\"}[5m])) by (le))","legendFormat":"p95"}] },
+    { "id": 4, "type": "timeseries", "title": "Database connections", "gridPos": {"x":12,"y":0,"w":12,"h":14}, "targets": [{"expr":"hikaricp_connections_active{job=\"snip-api\"}","legendFormat":"active"},{"expr":"hikaricp_connections_idle{job=\"snip-api\"}","legendFormat":"idle"}] }
+  ]
+}
